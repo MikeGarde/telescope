@@ -7,10 +7,11 @@ use DateTimeInterface;
 interface PrunableRepository
 {
     /**
-     * Prune all of the entries older than the given date.
+     * Prune all the entries older than the given date.
      *
      * @param  \DateTimeInterface  $before
-     * @return int
+     * @param  int $chunkSize
+     * @return mixed
      */
-    public function prune(DateTimeInterface $before);
+    public function prune(DateTimeInterface $before, int $chunkSize);
 }

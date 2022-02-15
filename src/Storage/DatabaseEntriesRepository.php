@@ -330,13 +330,18 @@ class DatabaseEntriesRepository implements Contract, ClearableRepository, Prunab
     }
 
     /**
-     * Prune all of the entries older than the given date.
+     * Prune all the entries older than the given date.
      *
      * @param  \DateTimeInterface  $before
+     * @param  int|null $chunkSize
      * @return int
      */
-    public function prune(DateTimeInterface $before)
+    public function prune(DateTimeInterface $before, int $chunkSize = null): int
     {
+        if ($chunkSize) {
+            $this->chunkSize = $chunkSize;
+        }
+
         $query = $this->table('telescope_entries')
                 ->where('created_at', '<', $before);
 
